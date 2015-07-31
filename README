@@ -1,56 +1,54 @@
-$Id$
-
                         EPICS Extensions Build Instructions
 
-                                  EPICS base 3.14        
- 
+                                  EPICS Base 3.14
+
 Extensions Directory Structure
 
-  EPICS software is divided into <top> areas. Examples of <top> areas are EPICS 
-  base itself, EPICS extensions, and simple or complicated EPICS IOC applications. 
+  EPICS software is divided into <top> areas. Examples of <top> areas
+  are EPICS Base itself, EPICS extensions, and simple or complicated
+  EPICS IOC applications.
 
   The EPICS extensions <top> area has the following directory structure:
 
-  <top>/ 
-     Makefile
-     configure/
-               Makefile
-               os/
-     src/
-         Makefile
-         extension1/
-                    Makefile
-                    <subdirectories and source files>
-         extension2/
-                    Makefile
-                    <subdirectories and source files>
-         .
-         .
-         .
-      include/
-      bin/
-      lib/
-      html/
-      . 
-      . 
-      . 
-  
-  where the <top> directory is usually named "extensions", configure is a 
-  directory containing build configuration files and a Makefile, os is a 
-  directory containing os specific build configuration files, and where each 
-  extension<n> is a directory tree structure containing source files and 
-  makefiles for an EPICS extension. The directories include, bin, lib, html, 
-  and other directories are created by the build.
+  <top>/
+    Makefile
+    configure/
+        Makefile
+        os/
+        ...
+    src/
+        Makefile
+        <extension>/
+            Makefile
+            <subdirectories and source files>
+        <extension>/
+            Makefile
+            <subdirectories and source files>
+        ...
+    include/
+    bin/
+    lib/
+    html/
+    ...
 
-EPICS extensions setup
+  The <top> directory is usually named "extensions". The configure
+  directory contains build configuration files, a Makefile and the os
+  subdirectory which has operating-system specific build configuration
+  files. Each <extension> directory tree contains source files and one
+  or more Makefiles for building a related set of extension programs or
+  library modules. The include, bin, lib, html, and similar directories
+  are created during the build to hold the products of the build
+  process.
+
+Setup
 
   Download the extensionsTop.tar.gz file:
 
-    Unzip and untar the extensionTop.tar.gz distribution file.  Use WinZip 
-    on Windows systems.
+    Unzip and untar the extensionTop.tar.gz distribution file. Use
+    WinZip on Windows systems.
 
-    This will create the extensions directory structure including 
-    all configure and configure/os build configuration files, this README
+    This will create the extensions directory structure including all
+    configure and configure/os build configuration files, this README
     and Makefiles in extensions/ and extensions/src/.
 
   Download desired extensions:
@@ -59,145 +57,149 @@ EPICS extensions setup
 
   Unzip and untar extensions:
 
-    Unzip and untar the extension distribution files to the extensions/src 
-    directory. Use WinZip on Windows systems.
+    Unzip and untar the extension distribution files to the
+    extensions/src directory. Use WinZip on Windows systems.
 
-Extension build software requirements:
+Build requirements
 
-        To build EPICS base and extensions you will need following items 
-        installed.  Some items can be obtained via links from the APS EPICS 
-        software distribution web page - 
-                http://www.aps.anl.gov/epics/download/extensions/index.php
+    To build EPICS base and extensions you will need following items
+    installed. Some items can be obtained via links from the APS EPICS
+    software distribution web page at
+        http://www.aps.anl.gov/epics/download/extensions/
 
-        You may not have to build extensions at your site. Built extensions for 
-        Win32 are available via the EPICS software distribution web page.
+    You may not have to build extensions at your site. Pre-built
+    extensions executables for Win32 are available via the EPICS
+    software distribution web page.
 
-          ANSI C compiler or GNU gcc compiler.
+    * ANSI C compiler or GNU gcc compiler.
 
-          EPICS base distribution, R3.14.8 or later, available
-          from http://aps.anl.gov/...
+    * EPICS base distribution, R3.14.12 or later, available from
+        http://www.aps.anl.gov/epics/download/base/
 
-          GNU make, V3.81 or later.
+    * GNU make, V3.81 or later.
 
-          Perl, version 5.8.1 or later
- 
-Known conditional software requirements:
+    * Perl, version 5.8.1 or later.
 
-        X11 is needed by the following extensions
-          alh, burt, medm, probe, stripTool
+Additional software requirements:
 
-        Motif is needed by the following extensions
-          alh, burt, medm, probe, StripTool
+    X11 is needed by the following extensions:
+      alh, burt, medm, probe, stripTool
 
-        Xrtgraph is needed by the following extensions
-          medm
+    Motif is needed by the following extensions:
+      alh, burt, medm, probe, StripTool
 
-        Tk-tcl is needed by the following extensions
-          casr
+    Xrtgraph is optional for the following extensions:
+      medm
 
-        Java is needed by the following extensions
-          jca, caj, vdct
+    Tk-tcl is needed by the following extensions:
+      casr
 
-Extensions build prerequisites
+    Java is needed by the following extensions:
+      jca, caj, vdct
 
-        EPICS_HOST_ARCH
+Build configuration
 
-           You must properly set the environemnt variable EPICS_HOST_ARCH. The
-          epics/startup/EpicsHostArch script file is provided with EPICS base
-          to set EPICS_HOST_ARCH.
- 
-        EPICS base
+    EPICS_HOST_ARCH
 
-            EPICS base must be configured and built prior to building any
-          extension
+      The environment variable EPICS_HOST_ARCH must be set appropriately
+      for the build host. The script startup/EpicsHostArch which is
+      provided in the EPICS Base distribution can be used to get a value
+      for this.
 
-        RELEASE file
+    EPICS Base
 
-          The EPICS_BASE definition in extensions/configure/RELEASE file must
-          point to the <top> of your built EPICS base.
+      EPICS Base must be configured and built prior to building any
+      extension
 
-        configure/CONFIG_SITE file
-        configure/os/CONFIG_SITE* files
+    RELEASE file
 
-          Your extensions/configure directory must be present and the 
-          CONFIG_SITE* files properly configured prior to building an extension.
+      The EPICS_BASE definition in extensions/configure/RELEASE must
+      point to the <top> of your built EPICS base.
 
-Extensions build commands 
+    Files configure/CONFIG_SITE and configure/os/CONFIG_SITE.*
 
-        Build a single extension (e.g. extension xyz):
+      The extensions/configure directory and its usual contents must be
+      present, and the CONFIG_SITE files properly configured prior to
+      building an extension. Comments in these files describe the
+      various build settings they control.
 
-          NOTE: The extensions on which this extension depends must be built
-          first. 
+Build commands
 
-          cd epics/extensions/src/xyz
- 
-            gmake            - To build and install the extension.
-            gmake install    - To build and install the extension.
-            gmake clean      - To clean temporary object files.  Clean will
-                               remove ALL O.<arch> subdirectoriess.
-            gmake archclean  - Removes O.<arch> dirs but not O.Common dir
-            gmake rebuild    - To clean, build and install the extension.
+    To build a single extension (e.g. extension xyz):
 
-        "Partial" build commands:
+      NOTE: Some extensions that use library routines may require other
+      extensions that build those libraries to have been built first.
 
-            gmake clean.<epics_host_arch>   - Removes O.<epics_host_arch> and 
-                                              O.Common directories.
-            gmake install.<epics_host_arch> - Builds and installs <epics_host_arch>
-                                              arch only.
-        Building a specific object file
+    Inside the epics/extensions/src/xyz directory
 
-          While developing code in a specific source file e.g. abc.c, cd to
-          the source dir's  O.<epics_host_arch> directory, and invoke 
-          "gmake <target_filename>" e.g.
-                  vi alh.c
-                  cd O.solaris-sparc
-                  gmake alh.o
-          The above example instructs make to build only alh.o.
+        make            - To build and install the extension.
+        make install    - To build and install the extension.
+        make clean      - To clean temporary object files. Clean will
+                          remove ALL O.<hostarch> subdirectoriess.
+        make archclean  - Removes O.<hostarch> dirs but not O.Common
+        make rebuild    - To clean, build and install the extension.
 
-        Build all extensions present in your epics tree:
+    Partial build commands
 
-          cd epics/extensions
+        make clean.<arch>   - Removes the O.<hostarch> and
+                              O.Common directories.
+        make install.<arch> - Builds and installs <arch> only.
 
-          gmake                - To build and install all extensions.
-          gmake clean          - To clean temporary object files.  Clean will
-                                 remove ALL O.<host_arch> subdirectories.
-          gmake rebuild        - To clean, build, and install all extensions.
+    Building a specific object file
 
-        Uninstalling all extensions
+      To compile a specific source file e.g. alh.c, from the source
+      dir's O.<arch> directory invoke "make <target_filename>" e.g.
 
-          gmake uninstall      - Remove install directories created by this hostarch.
-          gmake realuninstall  - Removes ALL install dirs
-          gmake distclean      - Same as realclean cvsclean realuninstall.
+          vi alh.c
+          cd O.solaris-sparc
+          make alh.o
 
-        Listing all gmake target commands
+      The above example instructs make to build only alh.o.
 
-          gmake help           - Prints this list of valid make targets 
+    To build all extensions present in your epics tree:
 
-          To build all extensions present in an extensions tree using one 
-          gmake command the DIRS list definition in extensions/src/Makefile 
-          needs to contain all your extension directory names.  Make sure 
-          that the dependancy extensions names for an extension preceed that 
-          extension name.
+      NOTE: To build all extensions present in the source tree using one
+      make command, the DIRS list definition in extensions/src/Makefile
+      needs to contain all your extension directory names. Make sure
+      that the dependancy extensions names for an extension preceed that
+      extension name.
 
-Extensions build notes 
+        cd epics/extensions
 
-        Install locations 
+        make                - To build and install all extensions.
+        make clean          - To clean temporary object files. Cleaning
+                              removes ALL O.<hostarch> subdirectories.
+        make rebuild        - To clean, build, and install all extensions.
 
-          Executables are installed into $(INSTALL_LOCATION)/bin/<arch>
-          and libraries into $(INSTALL_LOCATION)/lib/<arch>. INSTALL_LOCATION
-          defaults to <top> but may be changed in the configure/CONFIG_SITE
-          file.
+    Uninstalling all extensions
 
-        Header file dependancies
+        make uninstall      - Remove install directories for this hostarch.
+        make realuninstall  - Removes ALL install dirs
+        make distclean      - Same as realclean cvsclean realuninstall.
 
-          During a normal build (a "gmake" or "gmake install"), a file
-          containing header file dependancies is automatically generated in
-          the O.<host_arch> directory for each c/c++ source file. These files
-          have the source file name with a ".depends" suffix.
-     
-        Object files
+    Listing all make target commands
 
-          Compiler output object files are stored in the created O.<host_arch>
-          directories. This allows objects for multiple host architectures to 
-          be maintained in the same tree structure at the same time.
+        make help           - Prints a list of valid make targets
+
+Build notes
+
+    Install locations
+
+      Executables are installed into $(INSTALL_LOCATION)/bin/<arch> and
+      libraries into $(INSTALL_LOCATION)/lib/<arch>. $(INSTALL_LOCATION)
+      defaults to <top> but may be changed in the configure/CONFIG_SITE
+      file.
+
+    Header file dependancies
+
+      During a normal build (a "make" or "make install"), a file
+      containing header file dependancies is generated in the O.<arch>
+      directory for each object file compiled from C or C++ sources.
+      These files share the object file name with a ".d" suffix.
+
+    Object files
+
+      Compiler output object files are stored in the created O.<arch>
+      directories. This allows multiple host architectures to be built
+      and maintained in the same tree structure at the same time.
 

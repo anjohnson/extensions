@@ -2,11 +2,11 @@
 
 ## Extensions Directory Structure
 
-EPICS software is divided into <top> areas. Examples of <top> areas are
-EPICS Base itself, EPICS extensions, and simple or complicated EPICS IOC
-applications.
+EPICS software is divided into `<top>` areas. Examples of `<top>` areas
+are EPICS Base itself, EPICS extensions, and simple or complicated EPICS
+IOC applications.
 
-The EPICS extensions <top> area has the following directory structure:
+The EPICS extensions `<top>` area has the following directory structure:
 
 ```
   <top>/
@@ -31,11 +31,11 @@ The EPICS extensions <top> area has the following directory structure:
     ...
 ```
 
-The <top> directory is usually named "extensions". The configure
+The `<top>` directory is usually named "extensions". The configure
 directory contains build configuration files, a Makefile and the os
 subdirectory which has operating-system specific build configuration
-files. Each <extension> directory tree contains source files and one or
-more Makefiles for building a related set of extension programs or
+files. Each `<extension>` directory tree contains source files and one
+or more Makefiles for building a related set of extension programs or
 library modules. The include, bin, lib, html, and similar directories
 are created during the build to hold the products of the build process.
 
@@ -111,7 +111,7 @@ EPICS Base must be configured and built prior to building any extension
 ### RELEASE file
 
 The EPICS_BASE definition in extensions/configure/RELEASE must point to
-the <top> of your built EPICS base.
+the `<top>` of your built EPICS base.
 
 ### Files configure/CONFIG_SITE and configure/os/CONFIG_SITE.*
 
@@ -149,7 +149,7 @@ extensions that build those libraries to have been built first.
 #### Building a specific object file
 
 To compile a specific source file e.g. alh.c, from the source dir's
-O.<arch> directory invoke "make <target_filename>" e.g.
+`O.<arch>` directory invoke `make <target_filename>` e.g.
 
 ```
     vi alh.c
@@ -166,7 +166,7 @@ command, the DIRS list definition in extensions/src/Makefile needs to
 contain all your extension directory names. Ensure that the dependancy
 extensions names for an extension precede that extension name.
 
-#### Inside the <top> directory
+#### Inside the `<top>` directory
 
 ```
     make                - To build and install all extensions.
@@ -193,21 +193,21 @@ extensions names for an extension precede that extension name.
 
 ### Install locations
 
-Executables are installed into $(INSTALL_LOCATION)/bin/<arch> and
-libraries into $(INSTALL_LOCATION)/lib/<arch>. $(INSTALL_LOCATION)
-defaults to <top> but may be changed in the configure/CONFIG_SITE
+Executables are installed into `$(INSTALL_LOCATION)/bin/<arch>` and
+libraries into `$(INSTALL_LOCATION)/lib/<arch>`. $(INSTALL_LOCATION)
+defaults to `<top>` but may be changed in the configure/CONFIG_SITE
 file.
 
 ### Header file dependancies
 
 During a normal build (a "make" or "make install"), a file
-containing header file dependancies is generated in the O.<arch>
+containing header file dependancies is generated in the `O.<arch>`
 directory for each object file compiled from C or C++ sources.
-These files share the object file name with a ".d" suffix.
+These files share the object file name with a `.d` suffix.
 
 ### Object files
 
-Compiler output object files are stored in the created O.<arch>
+Compiler output object files are stored in the created `O.<arch>`
 directories. This allows multiple host architectures to be built
 and maintained in the same tree structure at the same time.
 

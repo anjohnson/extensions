@@ -1,6 +1,4 @@
-# $Id$
-#
-#RELEASE Location of external products
+# RELEASE - Location of external products
 #
 # NOTE: The build does not check dependancies on files
 # external to this application. Thus you should run
@@ -9,17 +7,14 @@
 # module defined in a RELEASE* file is rebuilt.
 #
 # Host/target specific settings can be specified in files named
-#  RELEASE.$(EPICS_HOST_ARCH).Common
-#  RELEASE.Common.$(T_A)
-#  RELEASE.$(EPICS_HOST_ARCH).$(T_A)
+#   RELEASE.$(EPICS_HOST_ARCH).Common
+#   RELEASE.Common.$(T_A)
+#   RELEASE.$(EPICS_HOST_ARCH).$(T_A)
 
-# Define INSTALL_LOCATION in CONFIG_SITE
+# If needed, set INSTALL_LOCATION in CONFIG_SITE
 
-# Location of external products
+# Location of preceeding modules
 
-# Location of external products
-EPICS_BASE=$(TOP)/../base
-#EPICS_EXTENSIONS = /usr/local/epics/extensions
-EPICS_EXTENSIONS=$(TOP)
+EPICS_BASE = /usr/local/epics/extensions-base/3.14.12.3-ext1
+EPICS_EXTENSIONS = $(TOP)
 
-OAG_APPS=$(TOP)/../../oag/apps
